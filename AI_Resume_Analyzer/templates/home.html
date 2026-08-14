@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Home - AI Resume Analyzer{% endblock %}
+
+{% block content %}
+
+<div class="hero-section">
+
+    <!-- Animated background -->
+    <div class="gradient-blob blob-one"></div>
+    <div class="gradient-blob blob-two"></div>
+
+    <div class="hero-content text-center">
+
+        <div class="ai-badge">
+            <span class="pulse-dot"></span>
+            AI-Powered Resume Analysis
+        </div>
+
+        <h1 class="hero-title">
+            Build a Resume That
+            <span>Gets Noticed.</span>
+        </h1>
+
+        <p class="hero-description">
+            Upload your resume, match it with a job description,
+            and get intelligent insights to improve your chances
+            of getting shortlisted.
+        </p>
+
+        <!-- Feature Cards -->
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card">
+
+                    <div class="feature-icon resume-icon">
+                        📄
+                    </div>
+
+                    <h4>Resume Score</h4>
+
+                    <p>
+                        Analyze your resume completeness,
+                        structure and overall strength.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+
+                    <div class="feature-icon ats-icon">
+                        🎯
+                    </div>
+
+                    <h4>ATS Score</h4>
+
+                    <p>
+                        Check how well your resume matches
+                        the requirements of a job.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+
+                    <div class="feature-icon ai-icon">
+                        🤖
+                    </div>
+
+                    <h4>AI Suggestions</h4>
+
+                    <p>
+                        Receive personalized suggestions
+                        to improve your resume.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Button -->
+        <div class="mt-5">
+
+            <a href="{{ url_for('main.upload_page') }}"
+               class="btn get-started-btn">
+
+                Analyze My Resume
+
+                <span class="arrow">→</span>
+
+            </a>
+
+        </div>
+
+        <div class="trust-text">
+            <span>✓</span> PDF & DOCX supported
+            <span>✓</span> AI-powered analysis
+            <span>✓</span> ATS matching
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
