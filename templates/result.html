@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Analysis Result - AI Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Analysis Result{% if result.candidate_name %} — {{ result.candidate_name }}{% endif %}</h3>
+            <a href="{{ url_for('result.download_report') }}" class="btn btn-outline-primary">
+                Download PDF Report
+            </a>
+        </div>
+
+        <!-- Score Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-{{ '6' if result.has_jd else '12' }}">
+                <div class="card text-center shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">Resume Score</h6>
+                        <h2 class="fw-bold">{{ result.resume_score }}/100</h2>
+                    </div>
+                </div>
+            </div>
+
+            {% if result.has_jd %}
+            <div class="col-md-6">
+                <div class="card text-center shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-muted">ATS Score</h6>
+                        <h2 class="fw-bold">{{ result.ats_score }}/100</h2>
+                        <span class="badge
+                            {% if result.can_apply == 'YES' %}bg-success
+                            {% elif result.can_apply == 'MAYBE' %}bg-warning text-dark
+                            {% else %}bg-danger{% endif %}">
+                            Can Apply: {{ result.can_apply }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if result.has_jd %}
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>✅ Matched Skills ({{ result.match_percentage }}%)</h6>
+                        {% for skill in result.matched_skills %}
+                            <span class="badge bg-success-subtle text-success border border-success me-1 mb-1">{{ skill }}</span>
+                        {% else %}
+                            <p class="text-muted mb-0">None matched.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>❌ Missing Skills</h6>
+                        {% for skill in result.missing_skills %}
+                            <span class="badge bg-danger-subtle text-danger border border-danger me-1 mb-1">{{ skill }}</span>
+                        {% else %}
+                            <p class="text-muted mb-0">None missing.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <h6>🧠 Extracted Skills</h6>
+                {% for skill in result.extracted_skills %}
+                    <span class="badge bg-secondary me-1 mb-1">{{ skill }}</span>
+                {% else %}
+                    <p class="text-muted mb-0">No skills detected.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>💪 Strengths</h6>
+                        <ul>
+                            {% for item in result.feedback.strengths %}
+                                <li>{{ item }}</li>
+                            {% else %}
+                                <li class="text-muted">Not available</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>⚠️ Weaknesses</h6>
+                        <ul>
+                            {% for item in result.feedback.weaknesses %}
+                                <li>{{ item }}</li>
+                            {% else %}
+                                <li class="text-muted">Not available</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <h6>📝 Resume Improvement Suggestions</h6>
+                <ul>
+                    {% for item in result.feedback.resume_suggestions %}
+                        <li>{{ item }}</li>
+                    {% else %}
+                        <li class="text-muted">Not available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {% if result.has_jd %}
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>📚 Skills to Learn</h6>
+                        <ul>
+                            {% for item in result.feedback.skills_to_learn %}
+                                <li>{{ item }}</li>
+                            {% else %}
+                                <li class="text-muted">Not available</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6>📈 ATS Improvement Tips</h6>
+                        <ul>
+                            {% for item in result.feedback.ats_tips %}
+                                <li>{{ item }}</li>
+                            {% else %}
+                                <li class="text-muted">Not available</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card shadow-sm mb-5">
+            <div class="card-body">
+                <h6>📋 Overall Feedback</h6>
+                <p class="mb-0">{{ result.feedback.overall_feedback or "Not available" }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

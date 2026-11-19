@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Analyze Resume - AI Resume Analyzer{% endblock %}
+
+{% block content %}
+
+<div class="upload-page">
+
+    <!-- Background decorations -->
+    <div class="upload-blob upload-blob-one"></div>
+    <div class="upload-blob upload-blob-two"></div>
+
+    <div class="upload-wrapper">
+
+        <!-- Header -->
+        <div class="upload-heading text-center">
+
+            <div class="upload-badge">
+                <span class="pulse-dot"></span>
+                AI Resume Analysis
+            </div>
+
+            <h1>
+                Analyze Your
+                <span>Resume</span>
+            </h1>
+
+            <p>
+                Upload your resume and optionally add a job description
+                to receive AI-powered insights and ATS matching.
+            </p>
+
+        </div>
+
+
+        <!-- Main Card -->
+        <div class="resume-upload-card">
+
+            <form action="{{ url_for('analyze.analyze') }}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  id="analyzeForm">
+
+
+                <!-- Resume Upload -->
+                <div class="form-section">
+
+                    <label class="modern-label">
+                        Resume File
+                        <span>PDF or DOCX</span>
+                    </label>
+
+                    <label for="resume" class="upload-box">
+
+                        <div class="upload-icon">
+                            📄
+                        </div>
+
+                        <div class="upload-text">
+
+                            <strong id="fileLabel">
+                                Click to upload your resume
+                            </strong>
+
+                            <p id="fileName">
+                                PDF or DOCX • Maximum supported file size
+                            </p>
+
+                        </div>
+
+                        <div class="upload-arrow">
+                            ↑
+                        </div>
+
+                        <input
+                            type="file"
+                            id="resume"
+                            name="resume"
+                            accept=".pdf,.docx"
+                            required
+                        >
+
+                    </label>
+
+                </div>
+
+
+                <div class="section-divider">
+                    <span>OPTIONAL</span>
+                </div>
+
+
+                <!-- Job Description -->
+                <div class="job-section">
+
+                    <div class="section-title">
+
+                        <div class="section-icon">
+                            🎯
+                        </div>
+
+                        <div>
+                            <h3>ATS Job Matching</h3>
+                            <p>
+                                Compare your resume against a specific job.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Company -->
+                    <div class="modern-input-group">
+
+                        <label for="company_name">
+                            Company / Role Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company_name"
+                            name="company_name"
+                            placeholder="e.g. Software Engineer at TechCorp"
+                        >
+
+                    </div>
+
+
+                    <!-- Job Description -->
+                    <div class="modern-input-group">
+
+                        <label for="jd_text">
+                            Job Description
+                        </label>
+
+                        <textarea
+                            id="jd_text"
+                            name="jd_text"
+                            rows="6"
+                            placeholder="Paste the job description here..."
+                        ></textarea>
+
+                        <div class="textarea-hint">
+                            This helps calculate your ATS compatibility score.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="analyze-btn"
+                    id="submitBtn"
+                >
+
+                    <span class="btn-icon">✨</span>
+
+                    Analyze My Resume
+
+                    <span class="btn-arrow">→</span>
+
+                </button>
+
+
+                <!-- Trust information -->
+                <div class="upload-features">
+
+                    <span>
+                        ✓ Secure processing
+                    </span>
+
+                    <span>
+                        ✓ PDF & DOCX
+                    </span>
+
+                    <span>
+                        ✓ AI-powered insights
+                    </span>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
